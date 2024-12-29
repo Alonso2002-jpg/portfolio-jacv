@@ -1,0 +1,25 @@
+---
+import LineTitle from "./LineTitle.astro";
+
+const {title , description} = Astro.props
+---
+<div>
+    <LineTitle title={title} />
+    <span class="desc">
+      {description}
+    </span>
+</div>
+
+<style>
+    .desc{
+        font-size: .8rem;
+        width: 75%;
+        opacity: .8;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: .7rem;
+    }
+</style>

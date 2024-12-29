@@ -1,13 +1,10 @@
 ---
 
-import Layout from "../layouts/Layout.astro";
-import WelcomeSection from "../components/WelcomeSection.astro";
-import AboutMe from "../components/AboutMe.astro";
-import NavBar from "../components/NavBar.astro";
-import Projects from "../components/Projects.astro";
+import Layout from "../../layouts/Layout.astro";
+import WelcomeSection from "../../components/WelcomeSection.astro";
+import AboutMe from "../../components/AboutMe.astro";
+import NavBar from "../../components/NavBar.astro";
 const currentLang = Astro.currentLocale || "es"
-
-console.log(currentLang)
 ---
 
 <span class="line"></span>
@@ -15,13 +12,12 @@ console.log(currentLang)
     <NavBar currentLang={currentLang} />
 <WelcomeSection/>
 <AboutMe currentLang={currentLang} />
-    <Projects></Projects>
 </Layout>
 
 <style>
     .line {
         position: absolute;
-        top: 100%;
+        top: 50%;
         left: 0;
         right: 0;
         height: 2px;

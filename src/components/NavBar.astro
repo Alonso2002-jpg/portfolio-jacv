@@ -1,0 +1,45 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+const { currentLang } = Astro.props;
+
+const redirectToIndex = (lang: string) => {
+    const path = lang === 'en' ? '/en' : '/';
+    return `window.location.href = '${path}'`;
+}
+---
+
+<nav>
+    <div>
+        <button onclick={redirectToIndex('es')}>
+            <img src="https://img.icons8.com/?size=15&id=17967&format=png&color=000000" alt="Spain"/>
+        </button>
+        <b>|</b>
+        <button onclick={redirectToIndex('en')}>
+            <img src="https://img.icons8.com/?size=15&id=15534&format=png&color=000000" alt="Great Britain"/>
+        </button>
+    </div>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        position: fixed;
+        right: 15px;
+        top: 10px;
+        z-index: 4;
+        color: #e3e7e8;
+    }
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+</style>
