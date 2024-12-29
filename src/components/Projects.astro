@@ -1,18 +1,69 @@
 ---
+import ProjectComponent from "./ProjectComponent.astro";
+import Funkos from "../assets/projects/funkostore.png"
+import Panaderia from "../assets/projects/panaderiaproject.png"
+import Shortnest from "../assets/projects/shortnest.png"
+import Shape1 from "../assets/shapes/shape.svg"
+import Shape2 from "../assets/shapes/shape2.svg"
+import Shape3 from "../assets/shapes/shape3.svg"
+import type { ProjectComponentProps } from "../types";
+import {useTranslations} from "../i18n/utils";
+import {languageList} from "../i18n/ui";
 
-import ProjectContComponent from "./ProjectContComponent.astro";---
+const currentLang = Astro.currentLocale || "es"
 
-<div class="project-container">
-    <ProjectContComponent></ProjectContComponent>
-    <ProjectContComponent></ProjectContComponent>
-</div>
+const t = useTranslations(currentLang as keyof typeof languageList)
+
+const projects: ProjectComponentProps[] = [
+    {
+        projectImage:{
+            image: Panaderia,
+            imgBg:"linear-gradient(135deg, #655002 0%, #af9f62 100%);"
+        },
+        projectText:{
+            title:t("panaderiaTitle"),
+            techstach:t("panaderiaTechStack"),
+            description:t("panaderiaDesc"),
+            shape: Shape1.src
+        },
+        imgPosition: "left",
+    },
+    {
+        projectImage:{
+            image: Funkos,
+            imgBg:"linear-gradient(135deg, #c0e9ff 0%, #476fa8 100%);"
+        },
+        projectText:{
+            title:t("funkosTitle"),
+            techstach:t("funkosTechStack"),
+            description:t("funkosDesc"),
+            shape: Shape2.src
+        },
+        imgPosition: "right",
+    },
+    {
+        projectImage:{
+            image: Shortnest,
+            imgBg:"linear-gradient(135deg, #3D3B3C 0%, #ADAAA1 50% , #C1BDB3 100%);"
+        },
+        projectText:{
+            title:"SHORTNEST",
+            techstach:t("shortnestTechStack"),
+            description:t("shortnestDesc"),
+            shape: Shape3.src
+        },
+        imgPosition: "left",
+    }
+]
+
+
+---
+{
+    projects.map(projectProp => {
+        return <ProjectComponent projectsProps={projectProp} />
+        })
+    }
 
 <style>
-    .project-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
-    }
+
 </style>

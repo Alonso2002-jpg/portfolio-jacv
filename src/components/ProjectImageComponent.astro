@@ -1,0 +1,34 @@
+---
+const { projectImageProps } = Astro.props;
+
+---
+
+<div class="container">
+    <div class="image-container">
+
+    </div>
+</div>
+
+<style define:vars={{panaderiaBG: `url(${projectImageProps.image.src})`, gradiante: projectImageProps.imgBg}}>
+    .container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background: var(--gradiante);
+        justify-content: center;
+        align-items: center;
+    }
+    .image-container {
+        width: 70%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: var(--panaderiaBG);
+        background-color: rgba(0, 0, 0, 0.19);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 6px 6px 6px rgba(0, 0, 0, 0.23);
+    }
+</style>

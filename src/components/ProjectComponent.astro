@@ -1,0 +1,33 @@
+---
+import ProjectTextComponent from "./ProjectTextComponent.astro";
+import ProjectImageComponent from "./ProjectImageComponent.astro";
+
+const {projectsProps} = Astro.props
+---
+
+<div class="project-container">
+    {
+        projectsProps.imgPosition === "left" ?
+            (
+                    <ProjectImageComponent projectImageProps={projectsProps.projectImage} />
+                    <ProjectTextComponent projectTextProps={projectsProps.projectText} positionShape={projectsProps.imgPosition} />)
+            :
+            (
+                    <ProjectTextComponent projectTextProps={projectsProps.projectText}/>
+                    <ProjectImageComponent projectImageProps={projectsProps.projectImage} positionShape={projectsProps.imgPosition}/>
+
+            )
+    }
+
+</div>
+
+<style>
+    .project-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 65%;
+        width: 100%;
+        z-index: 1;
+    }
+</style>
