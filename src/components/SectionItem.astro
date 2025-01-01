@@ -1,22 +1,32 @@
 ---
 import LineTitle from "./LineTitle.astro";
-
-const {title , description} = Astro.props
+import TextImageComponent from "./TextImageComponent.astro";
+import Origin from "../assets/logorigin.jpg"
+const {title, description, withDesc = true} = Astro.props
 ---
 <div>
-    <LineTitle title={title} />
-    <span class="desc">
-      {description}
-    </span>
+    <LineTitle title={title}/>
+
+    {withDesc ?
+            <span class="desc">
+                  {description}
+              </span>
+        :
+            <span>
+              <TextImageComponent src={Origin.src} alt={"Logo de compañia OriginPath"} text={"OriginPath"}/>
+          </span>
+    }
+
 </div>
 
 <style>
-    .desc{
+    .desc {
         font-size: .8rem;
         width: 75%;
         opacity: .8;
     }
-    div{
+
+    div {
         display: flex;
         flex-direction: column;
         width: 100%;

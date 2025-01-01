@@ -6,6 +6,7 @@ export const languageList = {
 export const ui = {
     es: {
         'itsMe': 'Y este soy yo',
+        'actuallyOn': 'Actualmente en',
         'aboutMe': 'Sobre mi',
         'experience': 'Experiencia',
         'works': 'Trabajos',
@@ -28,6 +29,7 @@ export const ui = {
     },
     en: {
         'itsMe': 'And this is me',
+        'actuallyOn':"Currently in",
         'aboutMe': 'About Me',
         'experience': 'Experience',
         'works': 'Works',
@@ -47,5 +49,6 @@ export const ui = {
         'shortnestTitle': 'SHORTNEST',
         'shortnestTechStack': '.NET, VUE, front-end and back-end engineering work.',
         'shortnestDesc': 'URL shortener, personal learning project.'
+
     }
 }

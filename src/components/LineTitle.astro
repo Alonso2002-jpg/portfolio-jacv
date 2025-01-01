@@ -15,6 +15,7 @@ const {title} = Astro.props
         padding-left: 4%;
         position: relative;
         opacity: .4;
+        transition: opacity 0.5s ease-in-out;
     }
 
     .line::after {
@@ -26,5 +27,9 @@ const {title} = Astro.props
         position: absolute;
         left: 0;
         top: 50%;
+    }
+
+    .line:hover{
+        opacity: 1;
     }
 </style>
