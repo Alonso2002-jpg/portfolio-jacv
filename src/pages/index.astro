@@ -5,6 +5,7 @@ import WelcomeSection from "../components/WelcomeSection.astro";
 import AboutMe from "../components/AboutMe.astro";
 import NavBar from "../components/NavBar.astro";
 import Projects from "../components/Projects.astro";
+import FooterComponent from "../components/FooterComponent.astro";
 const currentLang = Astro.currentLocale || "es"
 ---
 
@@ -14,6 +15,7 @@ const currentLang = Astro.currentLocale || "es"
     <WelcomeSection/>
     <AboutMe currentLang={currentLang}/>
     <Projects/>
+    <FooterComponent/>
 </Layout>
 
 <style>

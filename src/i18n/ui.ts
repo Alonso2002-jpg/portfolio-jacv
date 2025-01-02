@@ -25,7 +25,12 @@ export const ui = {
         'funkosDesc': 'Proyecto de practica y aprendizaje institucional, realizado en 3 distintos lenguajes.',
         'shortnestTitle': 'SHORTNEST',
         'shortnestTechStack': '.NET, VUE, trabajo en ingieneria de front y back-end.',
-        'shortnestDesc': 'Acortador de URL, proyecto de aprendizaje propio.'
+        'shortnestDesc': 'Acortador de URL, proyecto de aprendizaje propio.',
+        'lookup': '¿Otro vistazo?',
+        'goodbye1': 'Y eso es todo',
+        'goodbye2': 'por ahora',
+        'meetme1':'Puedes saber mas de mis proyectos en',
+        'meetme2':'y un poco mas de mi en',
     },
     en: {
         'itsMe': 'And this is me',
@@ -48,7 +53,12 @@ export const ui = {
         'funkosDesc': 'Institutional practice and learning project, implemented in 3 different languages.',
         'shortnestTitle': 'SHORTNEST',
         'shortnestTechStack': '.NET, VUE, front-end and back-end engineering work.',
-        'shortnestDesc': 'URL shortener, personal learning project.'
+        'shortnestDesc': 'URL shortener, personal learning project.',
+        "lookup": "¿Another look?",
+        "goodbye1": "And that's all",
+        "goodbye2": "for now",
+        "meetme1": "You can learn more about my projects at",
+        "meetme2": "and a little more about me at"
 
     }
 }
