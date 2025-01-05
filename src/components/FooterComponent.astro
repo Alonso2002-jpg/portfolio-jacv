@@ -50,6 +50,9 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         width: 100%;
         z-index: 1;
         color: #F1F1F1;
+        @media (max-width: 780px) {
+            flex-direction: column;
+        }
     }
 
     .return-container {
@@ -66,6 +69,10 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         transition: opacity .4s ease-in-out, background-color .4s ease-in-out;
         color: #F1F1F1;
         cursor: pointer;
+        @media (max-width: 780px) {
+           width: 100%;
+            border-bottom: 1px rgba(131, 130, 130, 0.2) solid;
+        }
     }
 
     .return-container:hover {
@@ -117,6 +124,10 @@ const t = useTranslations(currentLang as keyof typeof languageList)
 
     .info-container {
         width: 50%;
+        @media (max-width: 780px) {
+            width: 100%;
+            padding: 2rem 0;
+        }
     }
 
     .data-info-container{
@@ -126,6 +137,11 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         gap: 6rem;
         font-size: .9rem;
         margin-right: 6rem;
+        @media (max-width: 780px) {
+            width: 100%;
+            justify-content: center;
+            text-align: center  ;
+        }
     }
     .info-container .goodbye-text {
         letter-spacing: .05rem;
@@ -138,13 +154,21 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         color: #F1F1F1;
         border-bottom: 2px solid #F1F1F1;
     }
-
+    .info-container .social-container{
+        @media (max-width: 780px) {
+            margin: auto;
+            width: 100%;
+        }
+    }
     .info-container .social-container ul {
         display: flex;
         justify-content: end;
         align-items: center;
         gap: 2.3rem;
         list-style: none;
+        @media (max-width: 780px) {
+            justify-content: center;
+        }
     }
     .info-container .social-container ul li a {
         text-decoration: none;

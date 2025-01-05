@@ -29,5 +29,9 @@ const {projectsProps} = Astro.props
         height: 65%;
         width: 100%;
         z-index: 1;
+        @media (max-width: 780px) {
+            flex-direction: column;
+            margin-bottom: 4rem;
+        }
     }
 </style>

@@ -5,14 +5,17 @@ import Origin from "../assets/logorigin.jpg"
 const {title, description, withDesc = true} = Astro.props
 ---
 <div>
-    <LineTitle title={title}/>
 
+    <LineTitle title={title}/>
     {withDesc ?
-            <span class="desc">
+        (
+
+                <span class="desc">
                   {description}
               </span>
+        )
         :
-            <span>
+          <span>
               <TextImageComponent src={Origin.src} alt={"Logo de compañia OriginPath"} text={"OriginPath"}/>
           </span>
     }
@@ -24,6 +27,16 @@ const {title, description, withDesc = true} = Astro.props
         font-size: .8rem;
         width: 75%;
         opacity: .8;
+        @media (max-width: 780px) {
+            width: 100%;
+            font-size: .6rem;
+        }
+    }
+
+    .text-title {
+        @media (max-width: 780px) {
+            display: none;
+        }
     }
 
     div {
