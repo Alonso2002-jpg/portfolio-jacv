@@ -8,8 +8,8 @@ import FooterComponent from "../../components/FooterComponent.astro";
 const currentLang = Astro.currentLocale || "es"
 ---
 
-<span class="line"></span>
 <Layout>
+    <span class="line"></span>
     <NavBar currentLang={currentLang}/>
     <WelcomeSection/>
     <AboutMe currentLang={currentLang}/>
@@ -20,12 +20,15 @@ const currentLang = Astro.currentLocale || "es"
 <style>
     .line {
         position: absolute;
-        top: 50%;
+        top: 100%;
         left: 0;
         right: 0;
         height: 2px;
         background-color: rgba(131, 130, 130, 0.2);
         z-index: 2;
         rotate: 100grad;
+        @media (max-width: 780px) {
+            display: none;
+        }
     }
 </style>
