@@ -2,18 +2,19 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import LoadingAnimation from '../components/LoadingAnimation.astro';
+import IconWeb from '../assets/favicon.svg'
 ---
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <LoadingAnimation/>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={IconWeb.src} />
     <meta name="generator" content={Astro.generator} />
     <title>Alonso Cruz ● Full Stack Developer</title>
 </head>
 <body>
+<LoadingAnimation/>
 <slot />
 </body>
 </html>
