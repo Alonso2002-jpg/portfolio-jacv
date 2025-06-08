@@ -5,7 +5,7 @@ export const languageList = {
 
 export const ui = {
     es: {
-        'itsMe': 'Y este soy yo',
+        'itsMe': 'Este soy yo',
         'actuallyOn': 'Actualmente en',
         'aboutMe': 'Sobre mi',
         'experience': 'Experiencia',
@@ -33,7 +33,7 @@ export const ui = {
         'meetme2':'y un poco mas de mi en',
     },
     en: {
-        'itsMe': 'And this is me',
+        'itsMe': 'This is me',
         'actuallyOn':"Currently in",
         'aboutMe': 'About Me',
         'experience': 'Experience',
