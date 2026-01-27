@@ -6,15 +6,15 @@ import SectionItem from "./SectionItem.astro";
 const { src, alt } = Astro.props
 const currentLang = Astro.currentLocale || "es"
 const t = useTranslations(currentLang as keyof typeof languageList)
-
 ---
 <div class="main-container">
     <div class="container">
-        <img src={src} alt={alt}/>
+        <img src={src} alt={alt} onclick="downloadCV()"/>
         <div class="arrow-text">
             <text class="arrow-left-up"><HiArrowTurnUpLeft size={25} color="#3A4852"/></text>
             <text class="arrow-up"><HiArrowUp size={13} color="#3A4852"/></text>
             <span>{t('itsMe')} 👀</span>
+            <a href="/curriculum_jacv_2026.pdf" download="jorge_alonso_cruz_cv.pdf" class="instruction-text">{t('instructions')}</a>
         </div>
     </div>
     <div class="working-text">
@@ -31,6 +31,17 @@ const t = useTranslations(currentLang as keyof typeof languageList)
             justify-content: center;
             gap: 1rem;
         }
+    }
+
+    .instruction-text{
+        font-size: 10px;
+        color: #5c5757;
+        cursor:pointer;
+        text-decoration: none;
+    }
+
+    .instruction-text:hover{
+        font-weight: bold;
     }
 
     .arrow-left-up{
