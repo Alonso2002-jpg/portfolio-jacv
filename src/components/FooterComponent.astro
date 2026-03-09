@@ -68,7 +68,12 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         cursor: pointer;
         @media (max-width: 780px) {
            width: 100%;
+            height: auto;
+            min-height: 120px;
             border-bottom: 1px rgba(131, 130, 130, 0.2) solid;
+            border-right: none;
+            opacity: 1;
+            padding: 2rem 0;
         }
     }
 
@@ -87,6 +92,10 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         color: transparent;
         transition: color .4s ease-in-out;
         font-size: 2em;
+
+        @media (max-width: 780px) {
+            color: #F1F1F1;
+        }
     }
 
     .vistazo-text::before,

@@ -18,26 +18,28 @@ const projects: ProjectComponentProps[] = [
     {
         projectImage:{
             image: Panaderia,
-            imgBg:"linear-gradient(135deg, #cea91d 0%, #af9f62 100%);"
+            imgBg:"linear-gradient(135deg, #6b4f10 0%, #3d3020 50%, #1a1a2e 100%)"
         },
         projectText:{
             title:t("panaderiaTitle"),
-            techstach:t("panaderiaTechStack"),
+            techstach:"Laravel, Blade Templates, PHP",
             description:t("panaderiaDesc"),
-            shape: Shape1.src
+            shape: Shape1.src,
+            githubUrl: "https://github.com/Alonso2002-jpg/Project-Panaderia-Laravel"
         },
         imgPosition: "left",
     },
     {
         projectImage:{
             image: Shortnest,
-            imgBg:"linear-gradient(135deg, #3D3B3C 0%, #ADAAA1 50% , #C1BDB3 100%);"
+            imgBg:"linear-gradient(135deg, #2e2e3a 0%, #1f1f30 50%, #1a1a2e 100%)"
         },
         projectText:{
             title:"SHORTNEST",
-            techstach:t("shortnestTechStack"),
+            techstach:".NET, Vue.js, TypeScript",
             description:t("shortnestDesc"),
-            shape: Shape3.src
+            shape: Shape3.src,
+            githubUrl: "https://github.com/Alonso2002-jpg/ShortNest"
         },
         imgPosition: "right",
     }
@@ -45,12 +47,45 @@ const projects: ProjectComponentProps[] = [
 
 
 ---
-{
-    projects.map(projectProp => {
-        return <ProjectComponent projectsProps={projectProp} />
+<div class="projects-section">
+    <div class="section-header">
+        <h2 class="section-title">{t("sectionProjects")}</h2>
+        <div class="section-line"></div>
+    </div>
+    {
+        projects.map(projectProp => {
+            return <ProjectComponent projectsProps={projectProp} />
         })
-}
+    }
+</div>
 
 <style>
+    .projects-section {
+        width: 100%;
+    }
 
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 0 2rem 1.5rem 2rem;
+        box-sizing: border-box;
+    }
+
+    .section-title {
+        font-family: "Albert Sans", serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #888;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+    .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, #ccc, transparent);
+    }
 </style>

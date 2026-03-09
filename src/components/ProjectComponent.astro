@@ -9,29 +9,32 @@ const {projectsProps} = Astro.props
     {
         projectsProps.imgPosition === "left" ?
             (
-                    <ProjectImageComponent projectImageProps={projectsProps.projectImage} />
-                    <ProjectTextComponent projectTextProps={projectsProps.projectText} positionShape={projectsProps.imgPosition} />)
-            :
+                <ProjectImageComponent projectImageProps={projectsProps.projectImage} />
+                <ProjectTextComponent projectTextProps={projectsProps.projectText} positionShape={projectsProps.imgPosition} />
+            ) :
             (
-                    <ProjectTextComponent projectTextProps={projectsProps.projectText}/>
-                    <ProjectImageComponent projectImageProps={projectsProps.projectImage} positionShape={projectsProps.imgPosition}/>
-
+                <ProjectTextComponent projectTextProps={projectsProps.projectText}/>
+                <ProjectImageComponent projectImageProps={projectsProps.projectImage} positionShape={projectsProps.imgPosition}/>
             )
     }
-
 </div>
 
 <style>
     .project-container {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+        align-items: stretch;
         justify-content: center;
-        height: 65%;
         width: 100%;
+        min-height: 460px;
+        height: 500px;
         z-index: 1;
+        margin-bottom: 1.5rem;
+
         @media (max-width: 780px) {
             flex-direction: column;
-            margin-bottom: 4rem;
+            height: auto;
+            margin-bottom: 2rem;
         }
     }
 </style>

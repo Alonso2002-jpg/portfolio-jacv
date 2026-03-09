@@ -8,6 +8,7 @@ type ProjectTextProps = {
     techstach:string
     description:string
     shape?:string
+    githubUrl?:string
 }
 export type ProjectComponentProps = {
     projectImage:ProjectImageProps

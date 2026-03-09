@@ -14,9 +14,11 @@ const { text } = Astro.props
         padding: 3px 0 3px 0;
         font-family:"Montserrat", serif ;
         font-weight: 200;
+        max-width: 90vw;
 
         @media (max-width: 780px) {
-            width: 15rem;
+            width: calc(100vw - 2rem);
+            font-size: 1.2em;
         }
     }
 </style>
