@@ -1,0 +1,170 @@
+﻿---
+import TechIcon from "./TechIcon";
+import {useTranslations} from "../i18n/utils";
+import {languageList} from "../i18n/ui";
+
+const currentLang = Astro.currentLocale || "es";
+const t = useTranslations(currentLang as keyof typeof languageList);
+
+const categories = [
+    {
+        title: t("techBackend"),
+        accent: "#00d4aa",
+        items: [
+            { name: ".NET", icon: "dotnet" },
+            { name: "Laravel", icon: "laravel" },
+            { name: "FastAPI", icon: "fastapi" },
+        ],
+    },
+    {
+        title: t("techFrontend"),
+        accent: "#a78bfa",
+        items: [
+            { name: "Angular", icon: "angular" },
+            { name: "React", icon: "react" },
+            { name: "TypeScript", icon: "typescript" },
+            { name: "Tailwind CSS", icon: "tailwindcss" },
+            { name: "PrimeNG", icon: "extension" },
+            { name: "PrimeReact", icon: "extension" },
+        ],
+    },
+    {
+        title: t("techCICD"),
+        accent: "#60a5fa",
+        items: [
+            { name: "Docker", icon: "docker" },
+            { name: "Nginx", icon: "nginx" },
+            { name: "AWS", icon: "aws" },
+        ],
+    },
+    {
+        title: t("techAI"),
+        accent: "#fbbf24",
+        items: [
+            { name: "GitHub Copilot", icon: "github" },
+            { name: "Cursor", icon: "cursor" },
+        ],
+    },
+];
+---
+
+<div class="technologies-section">
+    <div class="section-header">
+        <h2 class="section-title">{t("sectionTechnologies")}</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="categories-grid">
+        {categories.map((cat, idx) => (
+            <div class="category-card" style={`--accent: ${cat.accent}; --delay: ${idx * 0.15}s;`}>
+                <h3 class="category-title">{cat.title}</h3>
+                <div class="tech-items">
+                    {cat.items.map((item) => (
+                        <div class="tech-item">
+                            <span class="tech-icon"><TechIcon icon={item.icon} size={18} /></span>
+                            <span class="tech-name">{item.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ))}
+    </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            entry.target.addEventListener("animationend", () => {
+                entry.target.classList.add("animated");
+            }, { once: true });
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll(".category-card").forEach((c) => observer.observe(c));
+</script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,500;0,600;1,300&display=swap");
+
+    .technologies-section { width: 100%; padding: 3rem 0; }
+
+    .section-header {
+        display: flex; align-items: center; gap: 1.2rem;
+        padding: 0 2rem 2.5rem 2rem; box-sizing: border-box;
+    }
+    .section-title {
+        font-family: "Albert Sans", serif; font-size: 0.75rem; font-weight: 700;
+        letter-spacing: 0.25em; text-transform: uppercase; color: #888;
+        white-space: nowrap; margin: 0;
+    }
+    .section-line { flex: 1; height: 1px; background: linear-gradient(to right, #ccc, transparent); }
+
+    .categories-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem; padding: 0 2rem; max-width: 1200px; margin: 0 auto;
+    }
+
+    .category-card {
+        position: relative; background: rgba(26, 26, 26, 0.8);
+        border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+        border-radius: 16px; padding: 1.8rem;
+        opacity: 0; transform: translateY(30px);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+        overflow: hidden;
+    }
+    .category-card::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        opacity: 0.5;
+    }
+    .category-card.visible { animation: fade-in-up 0.6s ease-out var(--delay) forwards; }
+    .category-card.animated { opacity: 1; transform: translateY(0); animation: none; }
+    .category-card.animated:hover {
+        transform: translateY(-3px);
+        border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+        box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 12%, transparent),
+                    0 0 50px color-mix(in srgb, var(--accent) 5%, transparent);
+    }
+
+    .category-title {
+        font-family: "Albert Sans", serif; font-size: 0.85rem; font-weight: 600;
+        letter-spacing: 0.15em; text-transform: uppercase;
+        color: var(--accent); margin: 0 0 1.2rem 0;
+    }
+
+    .tech-items { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    .tech-item {
+        display: flex; align-items: center; gap: 0.5rem;
+        background: color-mix(in srgb, var(--accent) 6%, rgba(30, 30, 30, 0.9));
+        border: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+        border-radius: 10px; padding: 0.5rem 0.9rem;
+        transition: all 0.3s ease; cursor: default;
+    }
+    .tech-item:hover {
+        background: color-mix(in srgb, var(--accent) 14%, rgba(30, 30, 30, 0.9));
+        border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    .tech-icon { display: flex; align-items: center; color: var(--accent); line-height: 0; }
+    .tech-name {
+        font-family: "Albert Sans", serif; font-size: 0.78rem; font-weight: 500;
+        color: #d4d4d4; letter-spacing: 0.02em;
+    }
+
+    @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 780px) {
+        .categories-grid { grid-template-columns: 1fr; padding: 0 1rem; }
+        .category-card { padding: 1.3rem; }
+        .technologies-section { padding: 2rem 0; }
+    }
+</style>
+

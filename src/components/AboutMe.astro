@@ -2,7 +2,7 @@
 import LineTitle from "./LineTitle.astro";
 import AboutMeSection from "./AboutMeSection.astro";
 import AvatarComponent from "./AvatarComponent.astro";
-import MyImage from "../assets/my-jpg.png"
+import MyImage from "../assets/my_photo_2.png"
 import SectionItem from "./SectionItem.astro";
 import {useTranslations} from "../i18n/utils";
 import {languageList} from "../i18n/ui";
@@ -17,7 +17,7 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         <h2 class="section-title">{t("sectionAbout")}</h2>
         <div class="section-line"></div>
     </div>
-    <div class="container">
+    <div class="container about-card">
         <div class="content">
             <AboutMeSection>
                 <AvatarComponent src={MyImage.src} alt={"Jorge Alonso Cruz Vera"} />
@@ -32,6 +32,21 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         </div>
     </div>
 </div>
+
+<script>
+    const aboutContainer = document.querySelector('.about-card');
+    if (aboutContainer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        observer.observe(aboutContainer);
+    }
+</script>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;1,300&family=Poiret+One&display=swap');
@@ -51,6 +66,8 @@ const t = useTranslations(currentLang as keyof typeof languageList)
 
     .content{
         display: flex;
+        position: relative;
+        z-index: 2;
         @media (max-width: 780px) {
             flex-direction: column;
         }
@@ -86,16 +103,63 @@ const t = useTranslations(currentLang as keyof typeof languageList)
         height: 1px;
         background: linear-gradient(to right, #ccc, transparent);
     }
+
     .container {
         width: 80%;
         height: auto;
-        background: rgb(249, 249, 249);
+        background: linear-gradient(145deg, rgba(249, 249, 249, 0.97) 0%, rgba(240, 240, 248, 0.97) 100%);
+        border: 1px solid rgba(0, 212, 170, 0.12);
+        border-radius: 16px;
+        box-shadow: 0 0 40px rgba(0, 212, 170, 0.04), 0 4px 20px rgba(0, 0, 0, 0.06);
         z-index: 3;
         padding: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.6s ease, transform 0.6s ease;
         @media (max-width: 780px) {
             width: 100%;
             padding: 1rem 0;
             margin-bottom: 2rem;
+            border-radius: 0;
         }
+    }
+
+    /* Accent gradient line at top */
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00d4aa, #a78bfa, transparent);
+        opacity: 0.6;
+        z-index: 3;
+    }
+
+    /* Subtle dot grid pattern */
+    .container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(circle, rgba(0, 180, 150, 0.04) 1px, transparent 1px);
+        background-size: 24px 24px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .container.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .container:hover {
+        border-color: rgba(0, 212, 170, 0.22);
+        box-shadow: 0 0 50px rgba(0, 212, 170, 0.07), 0 4px 25px rgba(0, 0, 0, 0.08);
     }
 </style>
