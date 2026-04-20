@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-    <circle cx="64" cy="64" r="64" fill="#2f2f57"/>
-    <circle cx="64" cy="64" r="62" fill="none" stroke="#1a1a3c" stroke-width="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AC favicon">
+  <rect width="64" height="64" rx="12" fill="#171616"/>
+  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="Montserrat, Arial, sans-serif" font-size="26" font-weight="700" fill="#ffffff">AC</text>
 </svg>
+
