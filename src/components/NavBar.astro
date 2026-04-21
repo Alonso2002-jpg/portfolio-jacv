@@ -1,7 +1,7 @@
 ---
 const currentLang = Astro.currentLocale || "es"
 const redirectToIndex = (lang: string) => {
-    const path = lang === 'en' ? '/en' : '/';
+    const path = lang === 'en' ? '/' : '/es';
     return `window.location.href = '${path}'`;
 }
 ---
