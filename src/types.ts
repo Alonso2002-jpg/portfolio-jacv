@@ -9,6 +9,7 @@ type ProjectTextProps = {
     description:string
     shape?:string
     githubUrl?:string
+    liveUrl?:string
 }
 export type ProjectComponentProps = {
     projectImage:ProjectImageProps

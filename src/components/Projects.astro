@@ -3,6 +3,7 @@ import ProjectComponent from "./ProjectComponent.astro";
 import Funkos from "../assets/projects/funkostore.png"
 import Panaderia from "../assets/projects/panaderiaproject.png"
 import Shortnest from "../assets/projects/shortnest.png"
+import Emdcom from "../assets/projects/emdcom.png"
 import Shape1 from "../assets/shapes/shape.svg"
 import Shape2 from "../assets/shapes/shape2.svg"
 import Shape3 from "../assets/shapes/shape3.svg"
@@ -42,6 +43,20 @@ const projects: ProjectComponentProps[] = [
             githubUrl: "https://github.com/Alonso2002-jpg/ShortNest"
         },
         imgPosition: "right",
+    },
+    {
+        projectImage:{
+            image: Emdcom,
+            imgBg:"linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
+        },
+        projectText:{
+            title:"EMDCOM",
+            techstach:"Next.js 15, TypeScript, .NET 8, PostgreSQL, GitHub Actions",
+            description:t("emdcomDesc"),
+            shape: Shape2.src,
+            liveUrl: "https://emdcom.jorgealonsocruz.com/landing"
+        },
+        imgPosition: "left",
     }
 ]
 
