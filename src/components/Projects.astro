@@ -4,6 +4,8 @@ import Funkos from "../assets/projects/funkostore.png"
 import Panaderia from "../assets/projects/panaderiaproject.png"
 import Shortnest from "../assets/projects/shortnest.png"
 import Emdcom from "../assets/projects/emdcom.png"
+import Presto1 from "../assets/projects/presto-1.png"
+import Presto2 from "../assets/projects/presto-2.png"
 import Shape1 from "../assets/shapes/shape.svg"
 import Shape2 from "../assets/shapes/shape2.svg"
 import Shape3 from "../assets/shapes/shape3.svg"
@@ -57,6 +59,19 @@ const projects: ProjectComponentProps[] = [
             liveUrl: "https://emdcom.jorgealonsocruz.com/landing"
         },
         imgPosition: "left",
+    },
+    {
+        projectImage:{
+            images: [Presto1, Presto2],
+            imgBg:"linear-gradient(135deg, #1a1208 0%, #2c1f0a 50%, #111111 100%)"
+        },
+        projectText:{
+            title:"PRESTO",
+            techstach:"Next.js, TypeScript",
+            description:t("prestoDesc"),
+            shape: Shape3.src,
+        },
+        imgPosition: "right",
     }
 ]
 

@@ -1,22 +1,28 @@
 ---
 import ProjectTextComponent from "./ProjectTextComponent.astro";
 import ProjectImageComponent from "./ProjectImageComponent.astro";
+import ProjectImageCarouselComponent from "./ProjectImageCarouselComponent.astro";
 
 const {projectsProps} = Astro.props
+const hasCarousel = !!projectsProps.projectImage.images?.length
+const isLeft = projectsProps.imgPosition === "left"
 ---
 
 <div class="project-container">
-    {
-        projectsProps.imgPosition === "left" ?
-            (
-                <ProjectImageComponent projectImageProps={projectsProps.projectImage} />
-                <ProjectTextComponent projectTextProps={projectsProps.projectText} positionShape={projectsProps.imgPosition} />
-            ) :
-            (
-                <ProjectTextComponent projectTextProps={projectsProps.projectText}/>
-                <ProjectImageComponent projectImageProps={projectsProps.projectImage} positionShape={projectsProps.imgPosition}/>
-            )
+    {isLeft && (
+        hasCarousel
+            ? <ProjectImageCarouselComponent projectImageProps={projectsProps.projectImage} />
+            : <ProjectImageComponent projectImageProps={projectsProps.projectImage} />
+    )}
+    {isLeft
+        ? <ProjectTextComponent projectTextProps={projectsProps.projectText} positionShape={projectsProps.imgPosition} />
+        : <ProjectTextComponent projectTextProps={projectsProps.projectText}/>
     }
+    {!isLeft && (
+        hasCarousel
+            ? <ProjectImageCarouselComponent projectImageProps={projectsProps.projectImage} />
+            : <ProjectImageComponent projectImageProps={projectsProps.projectImage} positionShape={projectsProps.imgPosition}/>
+    )}
 </div>
 
 <style>

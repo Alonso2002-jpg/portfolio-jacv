@@ -1,5 +1,6 @@
 type ProjectImageProps = {
-    image:any
+    image?: any
+    images?: any[]
     imgBg:string
 }
 
