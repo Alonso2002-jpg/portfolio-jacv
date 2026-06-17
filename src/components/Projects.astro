@@ -1,122 +1,228 @@
 ---
-import ProjectComponent from "./ProjectComponent.astro";
-import Funkos from "../assets/projects/funkostore.png"
-import Panaderia from "../assets/projects/panaderiaproject.png"
-import Shortnest from "../assets/projects/shortnest.png"
 import Emdcom from "../assets/projects/emdcom.png"
-import Presto1 from "../assets/projects/presto-1.png"
-import Presto2 from "../assets/projects/presto-2.png"
-import Shape1 from "../assets/shapes/shape.svg"
-import Shape2 from "../assets/shapes/shape2.svg"
-import Shape3 from "../assets/shapes/shape3.svg"
-import type { ProjectComponentProps } from "../types";
+import Presto from "../assets/projects/presto-1.png"
+import Shortnest from "../assets/projects/shortnest.png"
+import Panaderia from "../assets/projects/panaderiaproject.png"
 import {useTranslations} from "../i18n/utils";
 import {languageList} from "../i18n/ui";
 
 const currentLang = Astro.currentLocale || "es"
-
 const t = useTranslations(currentLang as keyof typeof languageList)
 
-const projects: ProjectComponentProps[] = [
+const projects = [
     {
-        projectImage:{
-            image: Panaderia,
-            imgBg:"linear-gradient(135deg, #6b4f10 0%, #3d3020 50%, #1a1a2e 100%)"
-        },
-        projectText:{
-            title:t("panaderiaTitle"),
-            techstach:"Laravel, Blade Templates, PHP",
-            description:t("panaderiaDesc"),
-            shape: Shape1.src,
-            githubUrl: "https://github.com/Alonso2002-jpg/Project-Panaderia-Laravel"
-        },
-        imgPosition: "left",
+        num: "01", name: "EMDCOM", tags: "Full Stack · Next.js · .NET", year: "2025",
+        url: "https://emdcom.jorgealonsocruz.com/landing",
+        img: Emdcom.src, desc: t("emdcomDesc"),
     },
     {
-        projectImage:{
-            image: Shortnest,
-            imgBg:"linear-gradient(135deg, #2e2e3a 0%, #1f1f30 50%, #1a1a2e 100%)"
-        },
-        projectText:{
-            title:"SHORTNEST",
-            techstach:".NET, Vue.js, TypeScript",
-            description:t("shortnestDesc"),
-            shape: Shape3.src,
-            githubUrl: "https://github.com/Alonso2002-jpg/ShortNest"
-        },
-        imgPosition: "right",
+        num: "02", name: "PRESTO", tags: "SaaS · Web App", year: "2025",
+        url: "https://presupuestopdf.es/",
+        img: Presto.src, desc: t("prestoDesc"),
     },
     {
-        projectImage:{
-            image: Emdcom,
-            imgBg:"linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
-        },
-        projectText:{
-            title:"EMDCOM",
-            techstach:"Next.js 15, TypeScript, .NET 8, PostgreSQL, GitHub Actions",
-            description:t("emdcomDesc"),
-            shape: Shape2.src,
-            liveUrl: "https://emdcom.jorgealonsocruz.com/landing"
-        },
-        imgPosition: "left",
+        num: "03", name: "SHORTNEST", tags: ".NET · Vue · TypeScript", year: "2024",
+        url: "https://github.com/Alonso2002-jpg/ShortNest",
+        img: Shortnest.src, desc: t("shortnestDesc"),
     },
     {
-        projectImage:{
-            images: [Presto1, Presto2],
-            imgBg:"linear-gradient(135deg, #1a1208 0%, #2c1f0a 50%, #111111 100%)"
-        },
-        projectText:{
-            title:"PRESTO",
-            techstach:"Next.js, TypeScript",
-            description:t("prestoDesc"),
-            shape: Shape3.src,
-            liveUrl: "https://presupuestopdf.es/",
-        },
-        imgPosition: "right",
-    }
+        num: "04", name: "PANADERIA", tags: "Laravel · Blade · Backend", year: "2024",
+        url: "https://github.com/Alonso2002-jpg/Project-Panaderia-Laravel",
+        img: Panaderia.src, desc: t("panaderiaDesc"),
+    },
 ]
 
-
+const preview = t("workPreview")
 ---
-<div class="projects-section">
-    <div class="section-header">
-        <h2 class="section-title">{t("sectionProjects")}</h2>
-        <div class="section-line"></div>
+
+<section id="work" class="work section" data-reveal>
+    <p class="section-label center">{t("selectedWork")} — 02</p>
+
+    <div class="cards">
+        {projects.map((p) => (
+            <article class="card">
+                <a class="card-media" href={p.url} target="_blank" rel="noopener" aria-label={p.name}>
+                    <img src={p.img} alt={`${p.name} — ${preview}`} loading="lazy" />
+                    <span class="card-year">{p.year}</span>
+                </a>
+                <div class="card-body">
+                    <div class="card-top">
+                        <span class="card-num">{p.num}</span>
+                        <span class="card-tags">{p.tags}</span>
+                    </div>
+                    <h3 class="card-name">{p.name}</h3>
+                    <p class="card-desc">{p.desc}</p>
+                    <a class="card-link" href={p.url} target="_blank" rel="noopener">{t("workView")} ↗</a>
+                </div>
+            </article>
+        ))}
     </div>
-    {
-        projects.map(projectProp => {
-            return <ProjectComponent projectsProps={projectProp} />
-        })
-    }
-</div>
+
+    <a href="https://github.com/Alonso2002-jpg" target="_blank" rel="noopener" class="more">
+        <span class="more-text">{t("workMore")}</span>
+        <span class="arrow">↗</span>
+    </a>
+</section>
 
 <style>
-    .projects-section {
-        width: 100%;
+    .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(70px, 11vw, 130px) clamp(20px, 5vw, 40px);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .section-label {
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #86868b;
+        margin: 0 0 clamp(36px, 6vw, 64px);
+    }
+    .section-label.center { text-align: center; }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(20px, 3vw, 32px);
+    }
+    .card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        overflow: hidden;
+        background: linear-gradient(160deg, #141417, #0f0f11);
+        transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        border-color: rgba(255, 255, 255, 0.22);
+        transform: translateY(-4px);
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
     }
 
-    .section-header {
+    .card-media {
+        position: relative;
+        display: block;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .card-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        transition: transform 0.5s cubic-bezier(.2,.7,.2,1);
+    }
+    .card:hover .card-media img { transform: scale(1.04); }
+    .card-year {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: #e2e2e6;
+        background: rgba(11, 11, 12, 0.6);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 4px 10px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: clamp(20px, 3vw, 28px);
+        flex: 1;
+    }
+    .card-top {
         display: flex;
         align-items: center;
-        gap: 1.2rem;
-        padding: 0 2rem 1.5rem 2rem;
-        box-sizing: border-box;
+        justify-content: space-between;
+        gap: 12px;
     }
-
-    .section-title {
-        font-family: "Albert Sans", serif;
-        font-size: 0.75rem;
+    .card-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: #5a5a5e;
+    }
+    .card-tags {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: #86868b;
+        text-align: right;
+    }
+    .card-name {
         font-weight: 700;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        color: #888;
-        white-space: nowrap;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.02em;
+        line-height: 1;
         margin: 0;
+        color: #f4f4f5;
+    }
+    .card-desc {
+        font-weight: 300;
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: #a6a6ab;
+        margin: 0;
+        flex: 1;
+    }
+    .card-link {
+        align-self: flex-start;
+        margin-top: 4px;
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #f4f4f5;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        padding: 11px 22px;
+        transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .card-link:hover {
+        background: #f4f4f5;
+        color: #0b0b0c;
+        border-color: #f4f4f5;
     }
 
-    .section-line {
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(to right, #ccc, transparent);
+    .more {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: clamp(28px, 4vw, 40px);
+        padding: 22px 6px;
+        text-decoration: none;
+        color: #6c6c70;
+        transition: padding-left 0.35s, color 0.25s;
+    }
+    .more:hover { padding-left: 14px; color: #f4f4f5; }
+    .more-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+    }
+    .more .arrow { font-size: 14px; }
+
+    @media (max-width: 760px) {
+        .cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+        .section { padding: 56px 20px; }
+        .section-label { margin-bottom: 30px; }
+        .cards { gap: 18px; }
+        .card-body { gap: 10px; padding: 18px; }
+        .card-name { font-size: 1.4rem; }
+        .card-desc { font-size: 0.9rem; line-height: 1.6; }
+        .card-tags { font-size: 10px; }
+        .card-link { font-size: 10px; padding: 10px 18px; letter-spacing: 0.16em; }
+        .more { margin-top: 26px; padding: 20px 4px; }
     }
 </style>

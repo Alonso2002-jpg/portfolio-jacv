@@ -1,101 +1,66 @@
 ---
-import LineTitle from "./LineTitle.astro";
-import AboutMeSection from "./AboutMeSection.astro";
-import AvatarComponent from "./AvatarComponent.astro";
-import MyImage from "../assets/my_photo_2.png"
-import SectionItem from "./SectionItem.astro";
 import {useTranslations} from "../i18n/utils";
 import {languageList} from "../i18n/ui";
 
 const { currentLang } = Astro.props
-
 const t = useTranslations(currentLang as keyof typeof languageList)
 ---
 
-<div class="about-container">
-    <div class="section-header">
-        <h2 class="section-title">{t("sectionAbout")}</h2>
-        <div class="section-line"></div>
-    </div>
-    <div class="container">
-        <div class="content">
-            <AboutMeSection>
-                <AvatarComponent src={MyImage.src} alt={"Jorge Alonso Cruz Vera"} />
-                <SectionItem title={t('aboutMe')} description={t('aboutMeDesc')} />
-                <SectionItem title={t('experience')} description={t('experienceDesc')} />
-            </AboutMeSection>
-            <AboutMeSection>
-                <SectionItem title={t('works')} description={t('worksDesc')} />
-                <SectionItem title={t('skills')} description={t('skillsDesc')} />
-                <SectionItem title={t('hobbies')} description={t('hobbiesDesc')} />
-            </AboutMeSection>
+<section id="about" class="about section" data-reveal>
+    <p class="section-label">{t("sectionAbout")} — 01</p>
+    <div class="about-grid">
+        <h2 class="about-headline">{t("aboutHeadline")}</h2>
+        <div class="about-body">
+            <p>{t("aboutP1")}</p>
+            <p>{t("aboutP2")}</p>
         </div>
     </div>
-</div>
+</section>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;1,300&family=Poiret+One&display=swap');
-    .about-container {
-        width: 100%;
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-family: "Albert Sans", serif;
-        font-optical-sizing: auto;
-        font-weight: 200;
-        z-index: 1;
-        font-style: normal;
-        align-items: center;
+    .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(70px, 11vw, 130px) clamp(20px, 5vw, 40px);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
     }
-
-    .content{
-        display: flex;
-        @media (max-width: 780px) {
-            flex-direction: column;
-        }
-    }
-
-    .section-header {
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-        width: 80%;
-        padding: 0 0 1.5rem 0;
-        box-sizing: border-box;
-
-        @media (max-width: 780px) {
-            width: 100%;
-            padding: 0 2rem 1.5rem 2rem;
-        }
-    }
-
-    .section-title {
-        font-family: "Albert Sans", serif;
-        font-size: 0.76rem;
-        font-weight: 700;
-        letter-spacing: 0.25em;
+    .section-label {
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
-        color: #888;
-        white-space: nowrap;
+        color: #86868b;
+        margin: 0 0 40px;
+    }
+    .about-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: clamp(32px, 5vw, 72px);
+        align-items: start;
+    }
+    .about-headline {
+        font-weight: 600;
+        font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
         margin: 0;
+        color: #f4f4f5;
+        text-wrap: pretty;
     }
+    .about-body p {
+        font-weight: 300;
+        font-size: 1.06rem;
+        line-height: 1.75;
+        color: #a6a6ab;
+        margin: 0 0 20px;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
 
-    .section-line {
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(to right, #ccc, transparent);
-    }
-    .container {
-        width: 80%;
-        height: auto;
-        background: rgb(249, 249, 249);
-        z-index: 3;
-        padding: 2rem 0;
-        @media (max-width: 780px) {
-            width: 100%;
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-        }
+    @media (max-width: 600px) {
+        .section { padding: 56px 20px; }
+        .section-label { margin-bottom: 26px; }
+        .about-grid { gap: 22px; }
+        .about-headline { font-size: 1.3rem; line-height: 1.32; }
+        .about-body p { font-size: 0.92rem; line-height: 1.7; margin-bottom: 16px; }
     }
 </style>

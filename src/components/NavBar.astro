@@ -1,46 +1,103 @@
 ---
+import {useTranslations} from "../i18n/utils";
+import {languageList} from "../i18n/ui";
+
 const currentLang = Astro.currentLocale || "es"
-const redirectToIndex = (lang: string) => {
-    const path = lang === 'en' ? '/' : '/es';
-    return `window.location.href = '${path}'`;
-}
+const t = useTranslations(currentLang as keyof typeof languageList)
+
+const otherLang = currentLang === "es" ? "en" : "es"
+const otherHref = otherLang === "en" ? "/" : "/es"
+const otherLabel = otherLang === "en" ? "EN" : "ES"
 ---
 
-<nav>
-    <div>
-        <button class={currentLang == 'es' ? "selected" : ""} onclick={redirectToIndex('es')}>
-            <img src="https://img.icons8.com/?size=15&id=17967&format=png&color=000000" alt="Spain"/>
-        </button>
-        <b>|</b>
-        <button class={currentLang == 'en' ? "selected" : ""} onclick={redirectToIndex('en')}>
-            <img src="https://img.icons8.com/?size=15&id=15534&format=png&color=000000" alt="Great Britain"/>
-        </button>
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a href="#top" class="brand">AC<span>.</span></a>
+        <div class="nav-links">
+            <a href="#work" class="nav-link hide-sm">{t("navProjects")}</a>
+            <a href="#contact" class="nav-link">{t("navContact")}</a>
+            <a href={otherHref} class="nav-link lang">{otherLabel}</a>
+            <a href="/curriculum_jacv_2026.pdf" target="_blank" rel="noopener" class="nav-cv">{t("navCV")} ↗</a>
+        </div>
     </div>
 </nav>
 
 <style>
-    nav {
-        display: flex;
-        position: fixed;
-        right: 15px;
-        top: 10px;
-        z-index: 4;
-        color: #e3e7e8;
+    .site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(16px);
+        background: rgba(11, 11, 12, 0.55);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    button {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
+    .nav-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 clamp(20px, 5vw, 40px);
+        height: 64px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
-    .selected{
-        border-bottom: 1px solid #81786c;
+    .brand {
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: #f4f4f5;
+        text-decoration: none;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+    .brand span {
+        color: #fff;
+        font-size: 14px;
+        align-self: flex-start;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 4vw, 34px);
+    }
+    .nav-link {
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #86868b;
+        text-decoration: none;
+        transition: color 0.25s;
+    }
+    .nav-link:hover { color: #f4f4f5; }
+    .nav-link.lang {
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: 0.14em;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        padding: 5px 10px;
+    }
+    .nav-link.lang:hover { border-color: rgba(255, 255, 255, 0.45); }
+    .nav-cv {
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #f4f4f5;
+        text-decoration: none;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 3px;
+        transition: opacity 0.2s;
+    }
+    .nav-cv:hover { opacity: 0.7; }
+
+    @media (max-width: 520px) {
+        .nav-links { gap: 14px; }
+        .nav-link, .nav-cv { font-size: 10px; letter-spacing: 0.12em; }
+    }
+    @media (max-width: 400px) {
+        .hide-sm { display: none; }
+        .nav-links { gap: 12px; }
     }
 </style>

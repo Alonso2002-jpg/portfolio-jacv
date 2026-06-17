@@ -1,38 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
 import WelcomeSection from "../components/WelcomeSection.astro";
 import AboutMe from "../components/AboutMe.astro";
-import NavBar from "../components/NavBar.astro";
 import Projects from "../components/Projects.astro";
-import Technologies from "../components/Technologies.astro";
 import ProfessionalExperience from "../components/ProfessionalExperience.astro";
+import Technologies from "../components/Technologies.astro";
+import Contact from "../components/Contact.astro";
 import FooterComponent from "../components/FooterComponent.astro";
 const currentLang = Astro.currentLocale || "es"
 ---
 
 <Layout>
-    <span class="line"></span>
     <NavBar currentLang={currentLang} />
     <WelcomeSection/>
     <AboutMe currentLang={currentLang}/>
-    <ProfessionalExperience currentLang={currentLang}/>
     <Projects/>
+    <ProfessionalExperience currentLang={currentLang}/>
     <Technologies/>
+    <Contact/>
     <FooterComponent/>
 </Layout>
-
-<style>
-    .line {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: rgba(131, 130, 130, 0.2);
-        z-index: 2;
-        rotate: 100grad;
-        @media (max-width: 780px) {
-            display: none;
-        }
-    }
-</style>

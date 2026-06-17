@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/alons/AppData/Local/Temp/**)",
+      "Read(//tmp/**)",
+      "Bash(cygpath -w /tmp/m_full.png)",
+      "Bash(node \"C:/Users/alons/AppData/Local/Temp/shot.mjs\")",
+      "Bash(awk '{print $NF, $5}')",
+      "Bash(xargs -I{} stat -c '%n %s' {})",
+      "Bash(node \"C:/Users/alons/AppData/Local/Temp/shot2.mjs\")",
+      "Bash(node \"C:/Users/alons/AppData/Local/Temp/shot3.mjs\")",
+      "Bash(pkill -f \"remote-debugging-port\")",
+      "Bash(pkill -f \"astro preview\")",
+      "Bash(rm -f /tmp/sec_*.png /tmp/s_*.png /tmp/m*full*.png /tmp/c2.png /tmp/stack_live.png /tmp/hover.png /tmp/es_*.png /tmp/full_*.png)",
+      "Bash(rm -rf /tmp/edge_* /tmp/e2)",
+      "Bash(rm -f \"C:/Users/alons/AppData/Local/Temp/shot.mjs\" \"C:/Users/alons/AppData/Local/Temp/shot2.mjs\" \"C:/Users/alons/AppData/Local/Temp/shot3.mjs\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\alons\\AppData\\Local\\Temp"
+    ]
+  }
+}

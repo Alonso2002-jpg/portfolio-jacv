@@ -1,169 +1,157 @@
-﻿---
-import TechIcon from "./TechIcon";
+---
 import {useTranslations} from "../i18n/utils";
 import {languageList} from "../i18n/ui";
 
 const currentLang = Astro.currentLocale || "es";
 const t = useTranslations(currentLang as keyof typeof languageList);
 
-const categories = [
+// slug → Simple Icons CDN; color → representative brand color (used for icon + hover border)
+const rows = [
     {
-        title: t("techBackend"),
-        accent: "#00d4aa",
+        label: t("stackLanguages"),
         items: [
-            { name: ".NET", icon: "dotnet" },
-            { name: "Laravel", icon: "laravel" },
-            { name: "FastAPI", icon: "fastapi" },
+            { name: "C#", color: "#68217A" },
+            { name: "TypeScript", slug: "typescript", color: "#3178C6" },
+            { name: "PHP", slug: "php", color: "#777BB4" },
+            { name: "Python", slug: "python", color: "#3776AB" },
+            { name: "JavaScript", slug: "javascript", color: "#F7DF1E" },
+            { name: "SQL", color: "#4169E1" },
         ],
     },
     {
-        title: t("techFrontend"),
-        accent: "#a78bfa",
+        label: t("stackFrameworks"),
         items: [
-            { name: "Angular", icon: "angular" },
-            { name: "React", icon: "react" },
-            { name: "TypeScript", icon: "typescript" },
-            { name: "Tailwind CSS", icon: "tailwindcss" },
-            { name: "PrimeNG", icon: "extension" },
-            { name: "PrimeReact", icon: "extension" },
+            { name: ".NET", slug: "dotnet", color: "#512BD4" },
+            { name: "Angular", slug: "angular", color: "#DD0031" },
+            { name: "React", slug: "react", color: "#61DAFB" },
+            { name: "Next.js", slug: "nextdotjs", color: "#f4f4f5" },
+            { name: "Laravel", slug: "laravel", color: "#FF2D20" },
+            { name: "FastAPI", slug: "fastapi", color: "#009688" },
+            { name: "Tailwind", slug: "tailwindcss", color: "#06B6D4" },
         ],
     },
     {
-        title: t("techCICD"),
-        accent: "#60a5fa",
+        label: t("stackTools"),
         items: [
-            { name: "Docker", icon: "docker" },
-            { name: "Nginx", icon: "nginx" },
-            { name: "AWS", icon: "aws" },
-        ],
-    },
-    {
-        title: t("techAI"),
-        accent: "#fbbf24",
-        items: [
-            { name: "GitHub Copilot", icon: "github" },
-            { name: "Cursor", icon: "cursor" },
+            { name: "PostgreSQL", slug: "postgresql", color: "#4169E1" },
+            { name: "Docker", slug: "docker", color: "#2496ED" },
+            { name: "Nginx", slug: "nginx", color: "#009639" },
+            { name: "AWS", color: "#FF9900" },
+            { name: "Git", slug: "git", color: "#F05032" },
+            { name: "CI/CD", slug: "githubactions", color: "#2088FF" },
         ],
     },
 ];
+
+const iconUrl = (slug: string, color: string) =>
+    `https://cdn.simpleicons.org/${slug}/${color.replace('#', '')}`;
 ---
 
-<div class="technologies-section">
-    <div class="section-header">
-        <h2 class="section-title">{t("sectionTechnologies")}</h2>
-        <div class="section-line"></div>
-    </div>
-    <div class="categories-grid">
-        {categories.map((cat, idx) => (
-            <div class="category-card" style={`--accent: ${cat.accent}; --delay: ${idx * 0.15}s;`}>
-                <h3 class="category-title">{cat.title}</h3>
-                <div class="tech-items">
-                    {cat.items.map((item) => (
-                        <div class="tech-item">
-                            <span class="tech-icon"><TechIcon icon={item.icon} size={18} /></span>
-                            <span class="tech-name">{item.name}</span>
-                        </div>
+<section id="stack" class="stack section" data-reveal>
+    <p class="section-label">{t("sectionTechnologies")} — 04</p>
+    <div class="stack-rows">
+        {rows.map((row) => (
+            <div class="stack-row">
+                <div class="stack-label">{row.label}</div>
+                <div class="chips">
+                    {row.items.map((item) => (
+                        <span class="chip" style={`--accent: ${item.color};`}>
+                            {item.slug && (
+                                <img class="chip-icon" src={iconUrl(item.slug, item.color)}
+                                     alt="" aria-hidden="true" loading="lazy"
+                                     onerror="this.style.display='none'" />
+                            )}
+                            <span class="chip-name">{item.name}</span>
+                        </span>
                     ))}
                 </div>
             </div>
         ))}
     </div>
-</div>
-
-<script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            entry.target.addEventListener("animationend", () => {
-                entry.target.classList.add("animated");
-            }, { once: true });
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-document.querySelectorAll(".category-card").forEach((c) => observer.observe(c));
-</script>
+</section>
 
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,500;0,600;1,300&display=swap");
-
-    .technologies-section { width: 100%; padding: 3rem 0; }
-
-    .section-header {
-        display: flex; align-items: center; gap: 1.2rem;
-        padding: 0 2rem 2.5rem 2rem; box-sizing: border-box;
+    .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(70px, 11vw, 130px) clamp(20px, 5vw, 40px);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
     }
-    .section-title {
-        font-family: "Albert Sans", serif; font-size: 0.75rem; font-weight: 700;
-        letter-spacing: 0.25em; text-transform: uppercase; color: #888;
-        white-space: nowrap; margin: 0;
+    .section-label {
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #86868b;
+        margin: 0 0 clamp(36px, 6vw, 56px);
     }
-    .section-line { flex: 1; height: 1px; background: linear-gradient(to right, #ccc, transparent); }
-
-    .categories-grid {
-        display: grid; grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem; padding: 0 2rem; max-width: 1200px; margin: 0 auto;
+    .stack-rows {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(28px, 4vw, 40px);
     }
-
-    .category-card {
-        position: relative; background: rgba(26, 26, 26, 0.8);
-        border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
-        border-radius: 16px; padding: 1.8rem;
-        opacity: 0; transform: translateY(30px);
-        transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+    .stack-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: clamp(16px, 4vw, 64px);
+        align-items: start;
+    }
+    .stack-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: #86868b;
+    }
+    .chips {
+        grid-column: span 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        color: #e2e2e6;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        border-radius: 8px;
+        padding: 9px 15px;
+        transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+    .chip-icon {
+        width: 0;
+        height: 16px;
+        opacity: 0;
         overflow: hidden;
+        object-fit: contain;
+        transition: width 0.25s ease, opacity 0.25s ease, margin-right 0.25s ease;
     }
-    .category-card::before {
-        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        opacity: 0.5;
+    .chip:hover {
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+        color: #fff;
     }
-    .category-card.visible { animation: fade-in-up 0.6s ease-out var(--delay) forwards; }
-    .category-card.animated { opacity: 1; transform: translateY(0); animation: none; }
-    .category-card.animated:hover {
-        transform: translateY(-3px);
-        border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-        box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 12%, transparent),
-                    0 0 50px color-mix(in srgb, var(--accent) 5%, transparent);
-    }
-
-    .category-title {
-        font-family: "Albert Sans", serif; font-size: 0.85rem; font-weight: 600;
-        letter-spacing: 0.15em; text-transform: uppercase;
-        color: var(--accent); margin: 0 0 1.2rem 0;
+    .chip:hover .chip-icon {
+        width: 16px;
+        opacity: 1;
+        margin-right: 8px;
     }
 
-    .tech-items { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-
-    .tech-item {
-        display: flex; align-items: center; gap: 0.5rem;
-        background: color-mix(in srgb, var(--accent) 6%, rgba(30, 30, 30, 0.9));
-        border: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
-        border-radius: 10px; padding: 0.5rem 0.9rem;
-        transition: all 0.3s ease; cursor: default;
+    @media (max-width: 640px) {
+        .chips { grid-column: span 1; }
     }
-    .tech-item:hover {
-        background: color-mix(in srgb, var(--accent) 14%, rgba(30, 30, 30, 0.9));
-        border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 10%, transparent);
+    @media (max-width: 600px) {
+        .section { padding: 56px 20px; }
+        .section-label { margin-bottom: 28px; }
+        .stack-rows { gap: 22px; }
+        .stack-row { gap: 12px; }
+        .chip { font-size: 12px; padding: 8px 13px; }
+        .chip-icon { height: 15px; }
     }
-
-    .tech-icon { display: flex; align-items: center; color: var(--accent); line-height: 0; }
-    .tech-name {
-        font-family: "Albert Sans", serif; font-size: 0.78rem; font-weight: 500;
-        color: #d4d4d4; letter-spacing: 0.02em;
-    }
-
-    @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(30px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 780px) {
-        .categories-grid { grid-template-columns: 1fr; padding: 0 1rem; }
-        .category-card { padding: 1.3rem; }
-        .technologies-section { padding: 2rem 0; }
+    /* On touch devices there is no hover — always show icons */
+    @media (hover: none) {
+        .chip-icon { width: 16px; opacity: 1; margin-right: 8px; }
+        .chip { border-color: color-mix(in srgb, var(--accent) 35%, rgba(255,255,255,0.13)); }
     }
 </style>

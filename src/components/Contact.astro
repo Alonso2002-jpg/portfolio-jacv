@@ -1,0 +1,198 @@
+---
+import {useTranslations} from "../i18n/utils";
+import {languageList} from "../i18n/ui";
+
+const currentLang = Astro.currentLocale || "es"
+const t = useTranslations(currentLang as keyof typeof languageList)
+
+const email = "jorgealonso0876@gmail.com"
+---
+
+<section id="contact" class="contact section" data-reveal>
+    <p class="section-label">{t("sectionContact")} — 05</p>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h2 class="contact-heading">CONTACT</h2>
+            <p class="contact-intro">{t("contactIntro")}</p>
+            <div class="info-block">
+                <p class="info-label">{t("contactLocationLabel")}</p>
+                <p class="info-value">Madrid, {currentLang === "es" ? "España" : "Spain"}</p>
+            </div>
+            <div class="info-block">
+                <p class="info-label">{t("contactEmailLabel")}</p>
+                <a class="info-link" href={`mailto:${email}`}>{email}</a>
+            </div>
+            <div class="info-socials">
+                <a href="https://github.com/Alonso2002-jpg" target="_blank" rel="noopener">GITHUB ↗</a>
+                <a href="https://www.linkedin.com/in/jorge-alonso-cruz" target="_blank" rel="noopener">LINKEDIN ↗</a>
+            </div>
+        </div>
+
+        <form id="contact-form" class="contact-form">
+            <p class="form-title">{t("contactFormTitle")}</p>
+            <input id="cf-name" type="text" placeholder={t("formName")} />
+            <input id="cf-email" type="email" placeholder={t("formEmail")} />
+            <textarea id="cf-msg" rows="3" placeholder={t("formMsg")}></textarea>
+            <button id="cf-send" type="submit">{t("formSend")} ↗</button>
+        </form>
+    </div>
+</section>
+
+<script define:vars={{ email, sendLabel: t("formSend"), incompleteLabel: t("formIncomplete"), openingLabel: t("formOpening"), subjectLabel: t("formSubject") }}>
+    const form = document.getElementById('contact-form');
+    const btn = document.getElementById('cf-send');
+    const sendText = sendLabel + ' ↗';
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (document.getElementById('cf-name').value || '').trim();
+        const mail = (document.getElementById('cf-email').value || '').trim();
+        const msg = (document.getElementById('cf-msg').value || '').trim();
+        if (!name || !mail || !msg) {
+            btn.textContent = incompleteLabel;
+            setTimeout(() => { btn.textContent = sendText; }, 1600);
+            return;
+        }
+        const subject = encodeURIComponent(subjectLabel + ' ' + name);
+        const body = encodeURIComponent(msg + '\n\n— ' + name + '\n' + mail);
+        btn.textContent = openingLabel;
+        setTimeout(() => { btn.textContent = sendText; }, 2200);
+        window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+    });
+</script>
+
+<style>
+    .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(70px, 11vw, 130px) clamp(20px, 5vw, 40px);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .section-label {
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #86868b;
+        margin: 0 0 clamp(36px, 6vw, 56px);
+    }
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: clamp(36px, 5vw, 64px);
+        align-items: start;
+    }
+    .contact-heading {
+        font-weight: 800;
+        font-size: clamp(2.4rem, 6vw, 3.6rem);
+        letter-spacing: -0.025em;
+        line-height: 1;
+        margin: 0 0 24px;
+        color: #f4f4f5;
+    }
+    .contact-intro {
+        font-weight: 300;
+        font-size: 1.04rem;
+        line-height: 1.7;
+        color: #a6a6ab;
+        margin: 0 0 36px;
+        max-width: 42ch;
+    }
+    .info-block { margin-bottom: 24px; }
+    .info-label {
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #86868b;
+        margin: 0 0 7px;
+    }
+    .info-value {
+        font-weight: 400;
+        font-size: 1.02rem;
+        color: #e2e2e6;
+        margin: 0;
+    }
+    .info-link {
+        font-weight: 400;
+        font-size: 1.02rem;
+        color: #e2e2e6;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        padding-bottom: 2px;
+        transition: color 0.2s;
+    }
+    .info-link:hover { color: #fff; }
+    .info-socials {
+        display: flex;
+        gap: 24px;
+        margin-top: 32px;
+    }
+    .info-socials a {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        color: #86868b;
+        text-decoration: none;
+        transition: color 0.25s;
+    }
+    .info-socials a:hover { color: #f4f4f5; }
+
+    .contact-form {
+        background: linear-gradient(160deg, #161619, #0f0f11);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: clamp(24px, 4vw, 40px);
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+    }
+    .form-title {
+        font-weight: 700;
+        font-size: clamp(1.3rem, 3vw, 1.7rem);
+        letter-spacing: -0.01em;
+        margin: 0 0 28px;
+        color: #f4f4f5;
+    }
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        color: #f4f4f5;
+        font-size: 0.98rem;
+        padding: 12px 2px;
+        margin-bottom: 22px;
+        outline: none;
+        transition: border-color 0.25s;
+    }
+    .contact-form textarea { margin-bottom: 30px; resize: vertical; }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: #fff; }
+    .contact-form button {
+        width: 100%;
+        background: #fff;
+        color: #0b0b0c;
+        border: none;
+        border-radius: 999px;
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 15px;
+        cursor: pointer;
+        transition: filter 0.2s;
+    }
+    .contact-form button:hover { filter: brightness(0.9); }
+
+    @media (max-width: 600px) {
+        .section { padding: 56px 20px; }
+        .section-label { margin-bottom: 28px; }
+        .contact-grid { gap: 32px; }
+        .contact-heading { font-size: 2rem; margin-bottom: 18px; }
+        .contact-intro { font-size: 0.95rem; line-height: 1.65; margin-bottom: 28px; }
+        .info-value, .info-link { font-size: 0.95rem; }
+        .contact-form { padding: 24px 20px; border-radius: 14px; }
+        .form-title { font-size: 1.25rem; margin-bottom: 24px; }
+        .contact-form input, .contact-form textarea { font-size: 0.92rem; }
+    }
+</style>

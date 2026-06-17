@@ -1,58 +1,175 @@
 ---
-import WelcomeText from "./WelcomeText.astro";
+import {useTranslations} from "../i18n/utils";
+import {languageList} from "../i18n/ui";
+
+const currentLang = Astro.currentLocale || "es"
+const t = useTranslations(currentLang as keyof typeof languageList)
 ---
-<div class="background-text-container">
-    <div class="content">
-        <WelcomeText text={"Alonso Cruz"}></WelcomeText>
-        <WelcomeText text={"Full Stack Developer"}></WelcomeText>
+
+<header id="top" class="hero">
+    <p class="hero-iam">{t("heroIam")}</p>
+    <h1 class="hero-name">
+        <span class="name-fill">ALONSO</span>
+        <span class="name-stroke">CRUZ</span>
+    </h1>
+    <p class="hero-role">{t("heroRole")}</p>
+    <p class="hero-loc">{t("heroLocation")}</p>
+
+    <div class="furniture left">
+        <div class="socials">
+            <a href="https://github.com/Alonso2002-jpg" target="_blank" rel="noopener">GH</a>
+            <a href="https://www.linkedin.com/in/jorge-alonso-cruz" target="_blank" rel="noopener">IN</a>
+            <a href="mailto:jorgealonso0876@gmail.com">@</a>
+        </div>
+        <span class="index">.01</span>
     </div>
-</div>
+
+    <div class="scrollcue">
+        <span class="track"><span class="dot"></span></span>
+    </div>
+
+    <div class="furniture right wide-only">
+        <span class="version">{t("heroScrollHint")}</span>
+        <span class="rule"></span>
+    </div>
+</header>
 
 <style>
-    .background-text-container {
+    .hero {
         position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-
-    }
-
-    .content {
-        position: relative;
-        z-index: 3;
+        min-height: calc(100vh - 64px);
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        gap:.4rem;
-        width: 100%;
-        height: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 80px clamp(20px, 5vw, 40px) 120px;
+    }
+    .hero-iam {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: #86868b;
+        margin: 0 0 22px;
+        padding-left: 0.45em;
+    }
+    .hero-name {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 0.84;
+        font-size: clamp(3.4rem, 16vw, 11rem);
+    }
+    .name-fill { display: block; color: #f4f4f5; }
+    .name-stroke {
+        display: block;
+        color: transparent;
+        -webkit-text-stroke: 1.4px rgba(244, 244, 245, 0.55);
+    }
+    .hero-role {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: clamp(10px, 2.4vw, 13px);
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #a6a6ab;
+        margin: 28px 0 0;
+        padding-left: 0.4em;
+    }
+    .hero-loc {
+        font-weight: 400;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #5a5a5e;
+        margin: 16px 0 0;
     }
 
-    .background-text-container::before {
-        content: "Hello";
+    .furniture {
         position: absolute;
-        top: 50%;
-        left: 48%;
-        transform: translate(-50%, -50%);
-        font-family: 'Arial', sans-serif;
-        font-size: 46rem;
-        font-weight: bold;
-        color: rgba(122, 122, 122, 0.3);
-        white-space: nowrap;
-        text-shadow: 5px 20px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        @media (max-width: 1024px) {
-            font-size: 20rem;
-        }
-        @media (max-width: 780px) {
-            font-size: 10rem;
-            left: 50%;
-        }
-        @media (max-width: 480px) {
-            font-size: 6rem;
-        }
+        bottom: clamp(24px, 5vw, 40px);
+        display: flex;
+    }
+    .furniture.left {
+        left: clamp(20px, 5vw, 40px);
+        flex-direction: column;
+        gap: 14px;
+    }
+    .socials {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+    }
+    .socials a {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: #6c6c70;
+        text-decoration: none;
+        transition: color 0.25s;
+    }
+    .socials a:hover { color: #f4f4f5; }
+    .index {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: #3f3f43;
+        letter-spacing: 0.05em;
     }
 
+    .scrollcue {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: clamp(24px, 5vw, 38px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    .track {
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.16);
+        position: relative;
+        overflow: hidden;
+    }
+    .dot {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        animation: scrollcue 1.9s ease-in-out infinite;
+    }
 
+    .furniture.right {
+        right: clamp(20px, 5vw, 40px);
+        align-items: center;
+        gap: 12px;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+    }
+    .version {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        color: #5a5a5e;
+    }
+    .rule {
+        width: 1px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+    @media (max-width: 760px) {
+        .wide-only { display: none; }
+    }
+    @media (max-width: 600px) {
+        .hero { padding: 72px 20px 96px; }
+        .hero-iam { font-size: 10px; letter-spacing: 0.38em; margin-bottom: 16px; }
+        .hero-name { font-size: clamp(2.3rem, 13vw, 3.2rem); line-height: 0.9; }
+        .name-stroke { -webkit-text-stroke-width: 1px; }
+        .hero-role { font-size: 10px; letter-spacing: 0.3em; margin-top: 18px; }
+        .hero-loc { font-size: 10px; letter-spacing: 0.1em; margin-top: 12px; }
+        .socials a, .index { font-size: 10px; }
+    }
 </style>
