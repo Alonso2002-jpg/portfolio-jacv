@@ -1,51 +1,88 @@
 ---
 import {useTranslations} from "../i18n/utils";
 import {languageList} from "../i18n/ui";
+import LogoOrigin from "../assets/logorigin.jpg";
 
 const { currentLang } = Astro.props
 const t = useTranslations(currentLang as keyof typeof languageList)
 
-const company = {
-    name: "OriginPath",
-    role: t("expRole"),
-    period: t("expPeriod"),
-    desc: t("expCompanyDesc"),
-    projects: [
-        { title: t("expAiTitle"), stack: "Python · FastAPI · LLMs", desc: t("expAiDesc") },
-        { title: t("expSaasTitle"), stack: "Laravel · Next.js · Stripe", desc: t("expSaasDesc") },
-        { title: t("expEmsTitle"), stack: ".NET · Angular · PrimeNG", desc: t("expEmsDesc") },
-    ],
-}
+const companies = [
+    {
+        name: "Sotec Consulting",
+        role: t("sotecRole"),
+        period: t("sotecPeriod"),
+        current: true,
+        // Suelta tu archivo en: public/logos/sotec.svg (o .png)
+        logo: "/logos/sotec.jpg",
+        desc: t("sotecDesc"),
+        projects: [
+            { title: t("sotecProj1Title"), stack: ".NET · Angular 19 · Clean Architecture", desc: t("sotecProj1Desc") },
+            { title: t("sotecProj2Title"), stack: "Elasticsearch · PostgreSQL", desc: t("sotecProj2Desc") },
+        ],
+    },
+    {
+        name: "OriginPath",
+        role: t("expRole"),
+        period: t("expPeriod"),
+        current: false,
+        logo: LogoOrigin.src,
+        desc: t("expCompanyDesc"),
+        projects: [
+            { title: t("expAiTitle"), stack: "Python · FastAPI · LLMs", desc: t("expAiDesc") },
+            { title: t("expSaasTitle"), stack: "Laravel · Next.js · Stripe", desc: t("expSaasDesc") },
+            { title: t("expEmsTitle"), stack: ".NET · Angular · PrimeNG", desc: t("expEmsDesc") },
+        ],
+    },
+]
 ---
 
 <section id="experience" class="exp section" data-reveal>
     <p class="section-label">{t("sectionExperience")} — 03</p>
 
-    <div class="company">
-        <div class="company-head">
-            <div class="company-id">
-                <span class="company-tag">{t("expCompanyLabel")}</span>
-                <h3 class="company-name">{company.name}</h3>
-                <p class="company-role">{company.role}</p>
-            </div>
-            <span class="company-period">{company.period}</span>
-        </div>
-        <p class="company-desc">{company.desc}</p>
-
-        <div class="projects">
-            <p class="projects-label">{t("expProjectsLabel")}</p>
-            <div class="proj-list">
-                {company.projects.map((pr) => (
-                    <div class="proj">
-                        <div class="proj-head">
-                            <h4 class="proj-title">{pr.title}</h4>
-                            <span class="proj-stack">{pr.stack}</span>
+    <div class="companies">
+        {companies.map((company) => (
+            <div class="company">
+                <div class="company-head">
+                    <div class="company-id">
+                        <span class="company-logo" data-initial={company.name.charAt(0)}>
+                            {company.logo && (
+                                <img
+                                    src={company.logo}
+                                    alt={`${company.name} logo`}
+                                    loading="lazy"
+                                    onerror="this.closest('.company-logo').classList.add('no-logo'); this.remove();"
+                                />
+                            )}
+                        </span>
+                        <div class="company-meta">
+                            <span class="company-tags-row">
+                                <span class="company-tag">{t("expCompanyLabel")}</span>
+                                {company.current && <span class="company-current">{t("expCurrent")}</span>}
+                            </span>
+                            <h3 class="company-name">{company.name}</h3>
+                            <p class="company-role">{company.role}</p>
                         </div>
-                        <p class="proj-desc">{pr.desc}</p>
                     </div>
-                ))}
+                    <span class="company-period">{company.period}</span>
+                </div>
+                <p class="company-desc">{company.desc}</p>
+
+                <div class="projects">
+                    <p class="projects-label">{t("expProjectsLabel")}</p>
+                    <div class="proj-list">
+                        {company.projects.map((pr) => (
+                            <div class="proj">
+                                <div class="proj-head">
+                                    <h4 class="proj-title">{pr.title}</h4>
+                                    <span class="proj-stack">{pr.stack}</span>
+                                </div>
+                                <p class="proj-desc">{pr.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
+        ))}
     </div>
 </section>
 
@@ -65,6 +102,13 @@ const company = {
         margin: 0 0 clamp(36px, 6vw, 56px);
     }
 
+    /* Companies list */
+    .companies {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(20px, 3vw, 28px);
+    }
+
     /* Company block */
     .company {
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -79,6 +123,51 @@ const company = {
         gap: 20px;
         flex-wrap: wrap;
     }
+    .company-id {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    /* Logo (with initial fallback if the image is missing) */
+    .company-logo {
+        position: relative;
+        flex-shrink: 0;
+        width: 54px;
+        height: 54px;
+        border-radius: 13px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+    }
+    .company-logo::before {
+        content: attr(data-initial);
+        font-weight: 800;
+        font-size: 1.35rem;
+        color: #f4f4f5;
+    }
+    .company-logo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 8px;
+        background: #f4f4f5;
+    }
+    .company-current {
+        display: inline-block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.16em;
+        color: #7fe0a8;
+        border: 1px solid rgba(127, 224, 168, 0.4);
+        border-radius: 999px;
+        padding: 3px 9px;
+        vertical-align: middle;
+    }
     .company-tag {
         display: inline-block;
         font-family: 'JetBrains Mono', monospace;
@@ -89,6 +178,11 @@ const company = {
         border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 999px;
         padding: 4px 12px;
+    }
+    .company-tags-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         margin-bottom: 14px;
     }
     .company-name {

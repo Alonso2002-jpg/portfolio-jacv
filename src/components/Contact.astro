@@ -12,7 +12,7 @@ const email = "jorgealonso0876@gmail.com"
     <p class="section-label">{t("sectionContact")} — 05</p>
     <div class="contact-grid">
         <div class="contact-info">
-            <h2 class="contact-heading">CONTACT</h2>
+            <h2 class="contact-heading">{t("sectionContact")}</h2>
             <p class="contact-intro">{t("contactIntro")}</p>
             <div class="info-block">
                 <p class="info-label">{t("contactLocationLabel")}</p>
@@ -163,6 +163,12 @@ const email = "jorgealonso0876@gmail.com"
         margin-bottom: 22px;
         outline: none;
         transition: border-color 0.25s;
+    }
+
+    .contact-form textarea {
+        max-height: 250px;
+        min-height: 120px;
+        height: 120px;
     }
     .contact-form textarea { margin-bottom: 30px; resize: vertical; }
     .contact-form input:focus,
